@@ -35,6 +35,7 @@ def crop_to_ratio(img, w, h, ratio=float(SCREEN_WIDTH) / SCREEN_HEIGHT):
 
 
 while True:
+    # small calibration phase
     cap = cv2.VideoCapture(0)
     start = time.time()
     for i in xrange(FPS_TEST_LENGTH):
@@ -46,7 +47,7 @@ while True:
     print 'FRAME_DURATION_MS:', FRAME_DURATION_MS, 'FPS:', FPS
 
     clapper.wait_for_claps(2)
-
+    #capture video
     cv2.namedWindow('frame', cv2.WINDOW_NORMAL)
     cv2.setWindowProperty(
         'frame', cv2.WND_PROP_FULLSCREEN, cv2.cv.CV_WINDOW_FULLSCREEN)
@@ -69,8 +70,8 @@ while True:
     cap.release()
     out.release()
 
-    clapper.wait_for_claps(1)
-
+    clapper.wait_for_claps(1, timeout=300)
+    # display video back
     cap = cv2.VideoCapture(TEMP_VIDEO_PATH)
     while(cap.isOpened()):
         ret, frame = cap.read()
